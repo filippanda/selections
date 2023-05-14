@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  db:
+    build:
+      context: ./postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./flask
+    ports:
+      - "25000:5000"
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./react
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+

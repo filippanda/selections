@@ -1,0 +1,6 @@
+data/
+react/node_modules
+react/package-lock.json
+Archive.zip
+.idea
+.DS_Store
