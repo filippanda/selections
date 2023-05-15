@@ -2,9 +2,8 @@
 CREATE TABLE job_descriptions (
                                   id SERIAL PRIMARY KEY,
                                   summary TEXT,
-                                  category TEXT,
-                                  subcategory TEXT
-
+                                  title TEXT,
+                                  category TEXT
 );
 
 -- Create the table for CV summaries

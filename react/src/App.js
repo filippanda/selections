@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './App.css';
 
 function App() {
     const [jobDescription, setJobDescription] = useState('');
@@ -87,24 +88,33 @@ function App() {
     };
 
     return (
-        <div>
-            <h1>Job Description:</h1>
-            <p>{jobDescription.job_description}</p>
+        <div className='outerContainer'>
 
-            <h2>CV Summaries:</h2>
-            <ul>
-                {cvSummaries.map((cvSummary) => (
-                    <li key={cvSummary.id}>
-                        <button onClick={() => handleCvSelection(cvSummary)}>{cvSummary.cv_summary}</button>
-                    </li>
-                ))}
-            </ul>
+            <p className='title'>JOB - CV matching </p>
+            <p className='instructionText'>Select the most suitable CV/person for the following job description:</p>
+            <p className='jobText'> {jobDescription.title} <br /> {jobDescription.category} </p>
+            <p className='normalText'>{jobDescription.job_description}</p>
 
-            <h3>Selected CV:</h3>
-            <p>{selectedCv ? selectedCv.cv_summary : 'No CV selected'}</p>
-
+            <p className='innerTitle'>CV Summaries:</p>
             <div>
-                <button onClick={refreshPage}>Get new items!</button>
+                {cvSummaries.map((cvSummary) => (
+                    <div className='summaryContainer' key={cvSummary.id}>
+                        <button className={selectedCv.id === cvSummary.id ? 'clickedSummaryButton' : 'summaryButton'} onClick={() => handleCvSelection(cvSummary)}>
+                            <p className='summaryButtonText'>{cvSummary.cv_summary}</p>
+                        </button>
+                    </div>
+                ))}
+            </div>
+
+            <p className='innerTitle'>Selected CV:</p>
+            <p className='jobText'>{selectedCv ? selectedCv.cv_summary : 'No CV selected'}</p>
+
+            <div className='confirmContainer'>
+                <button className='confirmButton' onClick={refreshPage}>
+                    <p className='confirmText'>
+                        CONFIRM & GET NEW ITEMS!
+                    </p>
+                </button>
             </div>
         </div>
     );

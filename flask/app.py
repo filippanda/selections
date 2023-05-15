@@ -30,18 +30,18 @@ conn = psycopg2.connect(
 def get_job_description():
     print("Job description called")
     cursor = conn.cursor()
-    cursor.execute("SELECT id, summary, category, subcategory FROM job_descriptions ORDER BY RANDOM() LIMIT 1;")
+    cursor.execute("SELECT id, summary, title, category FROM job_descriptions ORDER BY RANDOM() LIMIT 1;")
     row = cursor.fetchone()
     id = row[0]
     job_description = row[1]
-    category = row[2]
-    subcategory = row[3]
+    title = row[2]
+    category = row[3]
     cursor.close()
     return jsonify({
         "id": id,
         "job_description": job_description,
-        "category": category,
-        "subcategory": subcategory
+        "title": title,
+        "category": category
     })
 
 # Route to retrieve five random CV summaries

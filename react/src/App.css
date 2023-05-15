@@ -1,38 +1,91 @@
-.App {
-  text-align: center;
+.outerContainer {
+  padding-left: 2%;
+  padding-right: 4%;
+  padding-top: 10px;
+  margin-bottom: 5%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.title {
+  color: #5c5470;
+  font-size: 34px;
+  font-weight: bold;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.instructionText {
+  color: #352f44;
+  font-style: italic;
+
+  font-size: 20px;
+  margin-bottom: 30px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.jobText {
+  margin-left: 3%;
+  margin-bottom: 0;
+  width: 80%;
+  font-size: 18px;
+  font-weight: 500;
+  text-decoration: underline;
+  color: #352f44;
+}
+
+.normalText {
+  margin-left: 3%;
+  width: 80%;
+  font-size: 18px;
+}
+
+.innerTitle {
+  color: #5c5470;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.summaryContainer {
+  margin-bottom: 5px;
+}
+
+.summaryButton {
+  padding: 10px;
+  margin-left: 3%;
+  width: 80%;
+  border-radius: 6px;
+  border-color: #352f44;
+  background-color: #eeecf3;
+}
+
+.clickedSummaryButton {
+  padding: 10px;
+  margin-left: 3%;
+  width: 80%;
+  border-radius: 6px;
+  border-width: 5px;
+  border-color: #352f44;
+  background-color: #c6c0d6;
+}
+
+.summaryButtonText {
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.confirmContainer {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.confirmButton {
+  border-radius: 4px;
+  padding: 8px;
+  width: 20%;
+  height: 10%;
+  background-color: #dbd8e3;
+  display: grid;
+  place-items: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.confirmText {
+  size: 10px;
+  font-weight: bold;
+  color: #352f44;
 }
