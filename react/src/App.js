@@ -11,8 +11,32 @@ function App() {
     }, []);
 
     function refreshPage() {
-        window.location.reload();
+        saveCvSelection(selectedCv).then(r => window.location.reload())
+        ;
     }
+
+    const saveCvSelection = async (cvSummary) => {
+        var all_choices_ids = cvSummaries.map(obj => obj.id);
+
+        try {
+            await fetch('http://localhost:25000/save_selection', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    jobDescriptionId: jobDescription.id,
+                    cvSummaryId: cvSummary.id,
+                    choices: all_choices_ids,
+                }),
+            });
+            console.log('Selection stored in the database');
+        } catch (error) {
+            console.log('Error storing selection:', error);
+        }
+    };
+
+
 
     const fetchJobDescription = async () => {
         try {
@@ -45,21 +69,21 @@ function App() {
     const handleCvSelection = async (cvSummary) => {
         setSelectedCv(cvSummary);
 
-        try {
-            await fetch('http://localhost:25000/save_selection', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    jobDescriptionId: jobDescription.id,
-                    cvSummaryId: cvSummary.id,
-                }),
-            });
-            console.log('Selection stored in the database');
-        } catch (error) {
-            console.log('Error storing selection:', error);
-        }
+        // try {
+        //     await fetch('http://localhost:25000/save_selection', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify({
+        //             jobDescriptionId: jobDescription.id,
+        //             cvSummaryId: cvSummary.id,
+        //         }),
+        //     });
+        //     console.log('Selection stored in the database');
+        // } catch (error) {
+        //     console.log('Error storing selection:', error);
+        // }
     };
 
     return (

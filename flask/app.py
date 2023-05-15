@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import psycopg2
 import time
+from psycopg2.extras import Json
 
 app = Flask(__name__)
 CORS(app)  # Enable Cross-Origin Resource Sharing (CORS) to allow requests from the frontend
@@ -29,14 +30,18 @@ conn = psycopg2.connect(
 def get_job_description():
     print("Job description called")
     cursor = conn.cursor()
-    cursor.execute("SELECT id, summary FROM job_descriptions ORDER BY RANDOM() LIMIT 1;")
+    cursor.execute("SELECT id, summary, category, subcategory FROM job_descriptions ORDER BY RANDOM() LIMIT 1;")
     row = cursor.fetchone()
     id = row[0]
     job_description = row[1]
+    category = row[2]
+    subcategory = row[3]
     cursor.close()
     return jsonify({
         "id": id,
-        "job_description": job_description
+        "job_description": job_description,
+        "category": category,
+        "subcategory": subcategory
     })
 
 # Route to retrieve five random CV summaries
@@ -56,10 +61,11 @@ def save_selection():
     data = request.get_json()
     job_description_id = data["jobDescriptionId"]
     cv_summary_id = data["cvSummaryId"]
+    choices = Json(data["choices"])
 
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO user_selections (job_description_id, cv_summary_id) VALUES (%s, %s);",
-                   (job_description_id, cv_summary_id))
+    cursor.execute("INSERT INTO user_selections (job_description_id, cv_summary_id, choices) VALUES (%s, %s, %s);",
+                   (job_description_id, cv_summary_id, choices))
     conn.commit()
     cursor.close()
 
