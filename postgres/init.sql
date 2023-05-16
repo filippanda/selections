@@ -16,5 +16,8 @@ CREATE TABLE cvs (
 CREATE TABLE user_selections (
                                  id SERIAL PRIMARY KEY,
                                  job_description_id INTEGER REFERENCES job_descriptions(id),
-                                 cv_summary_id INTEGER REFERENCES cvs(id)
+                                 cv_summary_id INTEGER REFERENCES cvs(id),
+                                 choices jsonb,
+                                 date_created timestamp,
+                                 username text
 );

@@ -15,7 +15,7 @@ d = {
     'password':"password"
 }
 time.sleep(5)
-from datetime import datetime
+from datetime import datetime, timezone
 print(datetime.now())
 
 conn = psycopg2.connect(
@@ -60,12 +60,29 @@ def save_selection():
     print("Save selection called")
     data = request.get_json()
     job_description_id = data["jobDescriptionId"]
-    cv_summary_id = data["cvSummaryId"]
+    cv_summary_id = data["cvSummaryId"] if "cvSummaryId" in data.keys() else -2
     choices = Json(data["choices"])
+    username = data["username"]
+    date_created = datetime.now() #timezone.utc
 
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO user_selections (job_description_id, cv_summary_id, choices) VALUES (%s, %s, %s);",
-                   (job_description_id, cv_summary_id, choices))
+    cursor.execute("INSERT INTO user_selections (job_description_id, cv_summary_id, choices, username, date_created) VALUES (%s, %s, %s, %s, %s);",
+                   (job_description_id, cv_summary_id, choices, username, date_created))
+    conn.commit()
+    cursor.close()
+
+    return jsonify({"message": "Selection saved successfully"})
+
+# Route to save user
+@app.route("/save_user", methods=["POST"])
+def save_user():
+    print("Save user called")
+    data = request.get_json()
+    username = data["user"]
+
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO usernames (username) VALUES (%s);",
+                   (username))
     conn.commit()
     cursor.close()
 
