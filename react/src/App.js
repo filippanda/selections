@@ -16,7 +16,7 @@ function App() {
 
   useEffect(() => {
     fetchJobDescription();
-    fetchCvSummaries();
+    // fetchCvSummaries();
   }, []);
 
   function refreshPage(selected) {
@@ -77,28 +77,29 @@ function App() {
       const response = await fetch(`${API_URL}/job_description`);
       if (response.ok) {
         const data = await response.json();
-        setJobDescription(data);
+        setJobDescription(data.job_description);
+        setCvSummaries(data.cv_summaries);
       } else {
-        throw new Error("Error fetching job description");
+        throw new Error("Error fetching job description/cvs");
       }
     } catch (error) {
-      console.log("Error fetching job description:", error);
+      console.log("Error fetching job description/cvs:", error);
     }
   };
 
-  const fetchCvSummaries = async () => {
-    try {
-      const response = await fetch(`${API_URL}/cv_summaries`);
-      if (response.ok) {
-        const data = await response.json();
-        setCvSummaries(data);
-      } else {
-        throw new Error("Error fetching CV summaries");
-      }
-    } catch (error) {
-      console.log("Error fetching CV summaries:", error);
-    }
-  };
+  // const fetchCvSummaries = async () => {
+  //   try {
+  //     const response = await fetch(`${API_URL}/cv_summaries`);
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       setCvSummaries(data);
+  //     } else {
+  //       throw new Error("Error fetching CV summaries");
+  //     }
+  //   } catch (error) {
+  //     console.log("Error fetching CV summaries:", error);
+  //   }
+  // };
 
   const handleCvSelection = async (cvSummary) => {
     setSelectedCv(cvSummary);
